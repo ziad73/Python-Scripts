@@ -102,6 +102,6 @@ def rename_episodes(base_dir):
                 print(f"❌ Failed to rename {old_file}: {e}")
 
 if __name__ == "__main__":
-    base_directory = r"E:\مسلسلات\Game of Throns"
+    base_directory = input("Enter the directory path: ")
     rename_episodes(base_directory)
     print("\n🎉 All episodes renamed with detected quality!")
