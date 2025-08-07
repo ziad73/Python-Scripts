@@ -1,0 +1,305 @@
+Cartify/
+├── Cartify.sln
+├── CartifyBLL/
+│   │   CartifyBLL.csproj
+│   │   Helper/
+│   │   │   FileUploader.cs
+│   │   │   IdentityExtensions.cs
+│   │   │   UserAddressExtensions.cs
+│   │   Services/
+│   │   │   EmailSender.cs
+│   │   │   SeedService.cs
+│   │   │   UserServices/
+│   │   │       AccountService.cs
+│   │   │       IAccountService.cs
+│   │   │       IUserService.cs
+│   │   │       UserService.cs
+│   │   ViewModels/
+│   │       Account/
+│   │           AddressVM.cs
+│   │           EditProfileVM.cs
+│   │           EmailCodeVM.cs
+│   │           LoginVM.cs
+│   │           ProfileVM.cs
+│   │           RegisterVM.cs
+│   │           ResetPasswordVM.cs
+│   │           VerifyEmailVM.cs
+├── CartifyDAL/
+│   │   CartifyDAL.csproj
+│   │   Database/
+│   │   │   CartifyDbContext.cs
+│   │   Entities/
+│   │   │   cart/
+│   │   │   │   Cart.cs
+│   │   │   │   CartItem.cs
+│   │   │   category/
+│   │   │   │   Category.cs
+│   │   │   order/
+│   │   │   │   Order.cs
+│   │   │   │   OrderItem.cs
+│   │   │   payment/
+│   │   │   │   Payment.cs
+│   │   │   │   PaymentMethod.cs
+│   │   │   product/
+│   │   │   │   Product.cs
+│   │   │   │   ProductReview.cs
+│   │   │   productCart/
+│   │   │   │   ProductCart.cs
+│   │   │   user/
+│   │   │       User.cs
+│   │   │       UserAddress.cs
+│   │   │       UserPayment.cs
+│   │   Enum/
+│   │   │   User/
+│   │   │       userGender/
+│   │   │           UserGender.cs
+│   │   Repo/
+│   │       CartRepo/
+│   │       │   Abstraction/
+│   │       │   │   ICartItemRepo.cs
+│   │       │   │   ICartRepo.cs
+│   │       │   Implementation/
+│   │       │       CartItemRepo.cs
+│   │       │       CartRepo.cs
+│   │       ProductCartRepo/
+│   │       │   Abstraction/
+│   │       │   │   IProductCartRepo.cs
+│   │       │   Implementation/
+│   │       │       ProductCartRepo.cs
+│   │       categoryRepo/
+│   │       │   Abstraction/
+│   │       │   │   ICategoryRepo.cs
+│   │       │   Implementation/
+│   │       │       CategoryRepo.cs
+│   │       orderRepo/
+│   │       │   Abstraction/
+│   │       │   │   IOrderItemRepo.cs
+│   │       │   │   IOrderRepo.cs
+│   │       │   Implementation/
+│   │       │       OrderItemRepo.cs
+│   │       │       OrderRepo.cs
+│   │       paymentRepo/
+│   │       │   Abstraction/
+│   │       │   │   IPaymentRepo.cs
+│   │       │   Impelemetation/
+│   │       │       PaymentRepo.cs
+│   │       productRepo/
+│   │       │   Abstraction/
+│   │       │   │   IProductRepo.cs
+│   │       │   Implementation/
+│   │       │       ProductRepo.cs
+│   │       userRepo/
+│   │           Abstraction/
+│   │           │   IUserRepo.cs
+│   │           Impelementaion/
+│   │               UserRepo.cs
+└── CartifyPLL/
+│       Areas/
+│       │   Admin/
+│       │       Controllers/
+│       │       │   AdminDashboardController.cs
+│       │       Views/
+│       │           AdminDashboard/
+│       │               Index.cshtml
+│       CartifyPLL.csproj
+│       CartifyPLL.csproj.user
+│       Controllers/
+│       │   AccountController.cs
+│       │   HomeController.cs
+│       Models/
+│       │   ErrorViewModel.cs
+│       Program.cs
+│       Properties/
+│       │   launchSettings.json
+│       Views/
+│       │   Account/
+│       │   │   AddAddress.cshtml
+│       │   │   EditAddress.cshtml
+│       │   │   EditProfileView.cshtml
+│       │   │   EmailCodeVerificationView.cshtml
+│       │   │   LoginView.cshtml
+│       │   │   ProfileView.cshtml
+│       │   │   RegisterView.cshtml
+│       │   │   ResetPasswordView.cshtml
+│       │   │   VerifyEmailView.cshtml
+│       │   │   _DeleteAddressModal.cshtml
+│       │   Home/
+│       │   │   Index.cshtml
+│       │   │   Privacy.cshtml
+│       │   │   Terms.cshtml
+│       │   Shared/
+│       │   │   Error.cshtml
+│       │   │   _AdminLayout.cshtml
+│       │   │   _AuthLayout.cshtml
+│       │   │   _Layout.cshtml
+│       │   │   _Layout.cshtml.css
+│       │   │   _LoginPartial.cshtml
+│       │   │   _ProductCard.cshtml
+│       │   │   _ProductWidgetColumn.cshtml
+│       │   │   _ValidationScriptsPartial.cshtml
+│       │   _ViewImports.cshtml
+│       │   _ViewStart.cshtml
+│       appsettings.Development.json
+│       appsettings.json
+│       wwwroot/
+│           Files/
+│           │   Avatars/
+│           │       20880aa7-2223-4730-9cd5-ca9fc9c7e583.jpg
+│           │       c0a2e604-7da1-4fe1-b814-43d3d1e07787.png
+│           css/
+│           │   admin.css
+│           │   bootstrap.min.css
+│           │   font-awesome.min.css
+│           │   nouislider.min.css
+│           │   pages/
+│           │   │   admin-dashboard.css
+│           │   │   auth.css
+│           │   │   contact.css
+│           │   │   footer.css
+│           │   │   fraq.css
+│           │   │   login.css
+│           │   │   navbar.css
+│           │   │   orders.css
+│           │   │   privacy.css
+│           │   │   product-details.css
+│           │   │   profile.css
+│           │   │   register.css
+│           │   │   search.css
+│           │   │   settings.css
+│           │   │   terms.css
+│           │   │   wishlist.css
+│           │   slick-theme.css
+│           │   slick.css
+│           │   style.css
+│           favicon.ico
+│           fonts/
+│           │   FontAwesome.otf
+│           │   fontawesome-webfont.eot
+│           │   fontawesome-webfont.svg
+│           │   fontawesome-webfont.ttf
+│           │   fontawesome-webfont.woff
+│           │   fontawesome-webfont.woff2
+│           │   slick.eot
+│           │   slick.svg
+│           │   slick.ttf
+│           │   slick.woff
+│           img/
+│           │   122.png
+│           │   Cartify Logo.png
+│           │   default-avatar.png
+│           │   hotdeal.png
+│           │   product01.png
+│           │   product02.png
+│           │   product03.png
+│           │   product04.png
+│           │   product05.png
+│           │   product06.png
+│           │   product07.png
+│           │   product08.png
+│           │   product09.png
+│           │   shop01.png
+│           │   shop02.png
+│           │   shop03.png
+│           js/
+│           │   admin.js
+│           │   bootstrap.min.js
+│           │   jquery.min.js
+│           │   jquery.zoom.min.js
+│           │   main.js
+│           │   nouislider.min.js
+│           │   pages/
+│           │   │   admin-dashboard.js
+│           │   │   auth.js
+│           │   │   cart.js
+│           │   │   checkout.js
+│           │   │   contact.js
+│           │   │   footer.js
+│           │   │   fraq.js
+│           │   │   index.js
+│           │   │   login.js
+│           │   │   navbar.js
+│           │   │   orders.js
+│           │   │   privacy.js
+│           │   │   product-details.js
+│           │   │   product.js
+│           │   │   profile.js
+│           │   │   register.js
+│           │   │   search.js
+│           │   │   settings.js
+│           │   │   store.js
+│           │   │   terms.js
+│           │   │   wishlist.js
+│           │   slick.min.js
+│           lib/
+│           │   bootstrap/
+│           │   │   LICENSE
+│           │   │   dist/
+│           │   │       css/
+│           │   │       │   bootstrap-grid.css
+│           │   │       │   bootstrap-grid.css.map
+│           │   │       │   bootstrap-grid.min.css
+│           │   │       │   bootstrap-grid.min.css.map
+│           │   │       │   bootstrap-grid.rtl.css
+│           │   │       │   bootstrap-grid.rtl.css.map
+│           │   │       │   bootstrap-grid.rtl.min.css
+│           │   │       │   bootstrap-grid.rtl.min.css.map
+│           │   │       │   bootstrap-reboot.css
+│           │   │       │   bootstrap-reboot.css.map
+│           │   │       │   bootstrap-reboot.min.css
+│           │   │       │   bootstrap-reboot.min.css.map
+│           │   │       │   bootstrap-reboot.rtl.css
+│           │   │       │   bootstrap-reboot.rtl.css.map
+│           │   │       │   bootstrap-reboot.rtl.min.css
+│           │   │       │   bootstrap-reboot.rtl.min.css.map
+│           │   │       │   bootstrap-utilities.css
+│           │   │       │   bootstrap-utilities.css.map
+│           │   │       │   bootstrap-utilities.min.css
+│           │   │       │   bootstrap-utilities.min.css.map
+│           │   │       │   bootstrap-utilities.rtl.css
+│           │   │       │   bootstrap-utilities.rtl.css.map
+│           │   │       │   bootstrap-utilities.rtl.min.css
+│           │   │       │   bootstrap-utilities.rtl.min.css.map
+│           │   │       │   bootstrap.css
+│           │   │       │   bootstrap.css.map
+│           │   │       │   bootstrap.min.css
+│           │   │       │   bootstrap.min.css.map
+│           │   │       │   bootstrap.rtl.css
+│           │   │       │   bootstrap.rtl.css.map
+│           │   │       │   bootstrap.rtl.min.css
+│           │   │       │   bootstrap.rtl.min.css.map
+│           │   │       js/
+│           │   │           bootstrap.bundle.js
+│           │   │           bootstrap.bundle.js.map
+│           │   │           bootstrap.bundle.min.js
+│           │   │           bootstrap.bundle.min.js.map
+│           │   │           bootstrap.esm.js
+│           │   │           bootstrap.esm.js.map
+│           │   │           bootstrap.esm.min.js
+│           │   │           bootstrap.esm.min.js.map
+│           │   │           bootstrap.js
+│           │   │           bootstrap.js.map
+│           │   │           bootstrap.min.js
+│           │   │           bootstrap.min.js.map
+│           │   jquery/
+│           │   │   LICENSE.txt
+│           │   │   dist/
+│           │   │       jquery.js
+│           │   │       jquery.min.js
+│           │   │       jquery.min.map
+│           │   jquery-validation/
+│           │   │   LICENSE.md
+│           │   │   dist/
+│           │   │       additional-methods.js
+│           │   │       additional-methods.min.js
+│           │   │       jquery.validate.js
+│           │   │       jquery.validate.min.js
+│           │   jquery-validation-unobtrusive/
+│           │       LICENSE.txt
+│           │       jquery.validate.unobtrusive.js
+│           │       jquery.validate.unobtrusive.min.js
+│           screenshot/
+│               Checkout.png
+│               Index.png
+│               Product.png
+│               Regular.png
+│               Store.png

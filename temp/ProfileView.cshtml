@@ -1,0 +1,345 @@
+﻿@using CartifyBLL.ViewModels.Account
+@model ProfileVM
+@{
+    ViewBag.Title = "My Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link href="/css/pages/profile.css" rel="stylesheet" />
+
+}
+@Html.AntiForgeryToken()
+
+<!-- BREADCRUMB -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+    </ol>
+</nav>
+<!-- /BREADCRUMB -->
+<!-- PROFILE SECTION -->
+<div class="container profile-container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="profile-header">My Profile</h2>
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- PROFILE SIDEBAR -->
+        <div class="col-md-4">
+            <div class="card profile-card">
+                <div class="card-body text-center">
+                    <div class="profile-avatar-container">
+                        <img src="@(Model.AvatarUrl ?? "/img/default-avatar.png")"
+                             class="profile-avatar img-thumbnail rounded-circle"
+                             id="profileAvatar">
+
+                    </div>
+
+                    <h4 class="profile-name">@Model.FullName</h4>
+                    <p class="profile-member-since">
+                        <i class="fa fa-calendar"></i> Member since @Model.MemberSince.ToString("MMMM yyyy")
+                    </p>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    @* <li class="list-group-item">
+                        <a href="@Url.Action("Profile", "Account")" class="active">
+                            <i class="fa fa-user"></i> Profile Overview
+                        </a>
+                    </li> *@
+                    <li class="list-group-item">
+                        <a href="@Url.Action("Orders", "Account")">
+                            <i class="fa fa-shopping-bag"></i> My Orders
+                        </a>
+                    </li>
+                    @* <li class="list-group-item">
+                        <a href="#address" data-toggle="tab" onclick="localStorage.setItem('activeProfileTab', '#address')">
+                            <i class="fa fa-map-marker"></i> Addresses
+                        </a>
+                    </li> *@
+                    <li class="list-group-item">
+                        <a href="@Url.Action("Settings", "Account")">
+                            <i class="fa fa-cog"></i> Account Settings
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PROFILE CONTENT -->
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" id="profileTabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab">Overview</a>
+                        </li>
+                        @* <li class="nav-item">
+                            <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab">Recent Orders</a>
+                        </li> *@
+                        <li class="nav-item">
+                            <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab">Address</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-body">
+                    <div class="tab-content" id="profileTabsContent">
+                        <!-- OVERVIEW TAB -->
+                        <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                            <h5 class="card-title">Personal Information</h5>
+
+                            <div class="profile-info-section">
+                                <div class="info-item">
+                                    <label>Full Name</label>
+                                    <p>@Model.FullName</p>
+                                </div>
+                                <div class="info-item">
+                                    <label>Email Address</label>
+                                    <p>
+                                        @Model.Email
+                                        @if (Model.EmailVerified)
+                                        {
+                                            <span class="badge badge-success verified-badge">
+                                                <i class="fa fa-check"></i> Verified
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("VerifyEmail", "Account")" class="badge badge-warning verify-badge">
+                                                Verify Now
+                                            </a>
+                                        }
+                                    </p>
+                                </div>
+                                @if (Model.PhoneNumber != null)
+                                {
+                                    <div class="info-item">
+                                        <label>Phone Number</label>
+                                        <p>
+                                            @Model.PhoneNumber
+                                            @if (Model.PhoneVerified)
+                                            {
+                                                <span class="badge badge-success verified-badge">
+                                                    <i class="fa fa-check"></i> Verified
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <a href="@Url.Action("VerifyPhone", "Account")" class="badge badge-warning verify-badge">
+                                                    Verify Now
+                                                </a>
+                                            }
+                                        </p>
+                                    </div>
+                                }
+                                <div class="profile-actions mt-4">
+                                    <a href="@Url.Action("EditProfile", "Account")" class="btn btn-primary">
+                                        <i class="fa fa-edit"></i> Edit Profile
+                                    </a>
+                                    <a href="@Url.Action("VerifyEmail", "Account")" class="btn btn-outline-secondary">
+                                        <i class="fa fa-lock"></i> Change Password
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        @* <!-- ORDERS TAB -->
+                        <div class="tab-pane fade" id="orders" role="tabpanel">
+                            @if (Model.RecentOrders.Any())
+                            {
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Order #</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th>Items</th>
+                                                <th>Total</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var order in Model.RecentOrders)
+                                            {
+                                                <tr>
+                                                    <td>#@order.Id</td>
+                                                    <td>@order.OrderDate.ToString("MMM dd, yyyy")</td>
+                                                    <td>
+                                                        <span class="badge @GetStatusBadgeClass(order.Status)">
+                                                            @order.Status
+                                                        </span>
+                                                    </td>
+                                                    <td>@order.ItemCount</td>
+                                                    <td>@order.Total.ToString("C")</td>
+                                                    <td>
+                                                        <a href="@Url.Action("Details", "Orders", new { id = order.Id })"
+                                                           class="btn btn-sm btn-outline-primary">
+                                                            View
+                                                        </a>
+                                                        @if (order.Status == "Delivered")
+                                                        {
+                                                            <a href="@Url.Action("Reorder", "Orders", new { id = order.Id })"
+                                                               class="btn btn-sm btn-outline-success ml-1">
+                                                                Reorder
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="text-center mt-3">
+                                    <a href="@Url.Action("Index", "Orders")" class="btn btn-primary">
+                                        View All Orders
+                                    </a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-info">
+                                    You haven't placed any orders yet. <a href="@Url.Action("Index", "Shop")">Start shopping now!</a>
+                                </div>
+                            }
+                        </div> *@
+
+                        <!-- ADDRESS TAB -->
+                        <div class="tab-pane fade" id="address" role="tabpanel">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title mb-0">My Addresses</h5>
+                                <a href="@Url.Action("AddAddress", "Account")" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-plus"></i> Add New Address
+                                </a>
+                            </div>
+
+                            @if (Model.Addresses != null && Model.Addresses.Any())
+                            {
+                                <div class="row">
+                                    @foreach (var address in Model.Addresses)
+                                    {
+                                        <div class="col-md-6 mb-3">
+                                            <div class="address-card @(address.IsDefault ? "default-address" : "")">
+                                                @if (address.IsDefault)
+                                                {
+                                                    <span class="default-badge">Default</span>
+                                                }
+                                                <div class="address-details">
+                                                    <h6>@address.Name</h6>
+                                                    <p>@address.StreetAddress</p>
+                                                    <p>@address.City, @address.State @address.PostalCode</p>
+                                                    <p>@address.Country</p>
+                                                    <p class="phone-number">Phone: @address.PhoneNumber</p>
+                                                </div>
+                                                <div class="address-actions mt-2">
+                                                    <a href="@Url.Action("EditAddress", "Account", new { id = address.Id })"
+                                                       class="btn btn-sm btn-outline-primary">
+                                                        <i class="fa fa-edit"></i> Edit
+                                                    </a>
+                                                    @if (!address.IsDefault)
+                                                    {
+                                                        <button onclick="setDefaultAddress(@address.Id)"
+                                                                class="btn btn-sm btn-outline-success ml-1">
+                                                            <i class="fa fa-check-circle"></i> Set Default
+                                                        </button>
+                                                    }
+                                                    <button data-address-id="@address.Id"
+                                                            class="btn btn-sm btn-outline-danger ml-1 delete-address-btn"
+                                                            data-toggle="modal" data-target="#deleteAddressModal-@address.Id">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                    </button>
+                                                </div>
+
+                                                <!-- Modal for each address -->
+                                                <div class="modal fade" id="deleteAddressModal-@address.Id" tabindex="-1" role="dialog">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Confirm Delete</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>Are you sure you want to delete this address?</p>
+                                                                <p><strong>@address.StreetAddress, @address.City</strong></p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                                <form asp-action="DeleteAddress" method="post" asp-controller="Account">
+                                                                    <input type="hidden" name="id" value="@address.Id" />
+                                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-warning">
+                                    You haven't added any addresses yet.
+                                </div>
+                            }
+                        </div>
+
+
+                        <!-- In the sidebar section, update the Addresses link to point to the address tab -->
+                        
+
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="/js/profile.js"></script>
+
+    <script>
+        function setDefaultAddress(addressId) {
+            fetch('@Url.Action("SetDefaultAddress", "Account")', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                },
+                body: JSON.stringify({ id: addressId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload(); // Refresh the page to show the updated default address
+                } else {
+                    alert(data.message || 'Failed to set default address.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while setting the default address.');
+            });
+        }
+    </script>
+}

@@ -32,6 +32,7 @@ def merge_files(directory_path, output_file="merged_files.txt"):
                     
                     # Add spacing between files
                     outfile.write("\n\n")
+                    
                 except UnicodeDecodeError:
                     # Skip binary files
                     outfile.write(f"[Binary file - content not displayed]\n\n")

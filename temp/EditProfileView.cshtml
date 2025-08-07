@@ -1,0 +1,81 @@
+﻿@model CartifyBLL.ViewModels.Account.EditProfileVM
+@{
+    ViewBag.Title = "Edit Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link href="/css/pages/profile.css" rel="stylesheet" />
+}
+
+<div class="container profile-container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="profile-header">Edit Profile</h2>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+
+            <form asp-action="EditProfile" asp-controller="Account" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+
+                <div class="form-group text-center">
+                    <div class="profile-avatar-container">
+                        <img src="@(Model.AvatarUrl ?? "/img/default-avatar.png")"
+                             alt="Avatar"
+                             class="profile-avatar img-thumbnail rounded-circle"
+                             id="profileAvatarPreview">
+                        <div class="avatar-overlay">
+                            <label for="avatarUpload" class="avatar-upload-label">
+                                <i class="fa fa-camera"></i> Change
+                            </label>
+                            <input type="file" name="Avatar" id="avatarUpload" class="d-none" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FullName"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="PhoneNumber"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-right">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-save"></i> Save Changes
+                    </button>
+                    <a href="@Url.Action("Profile", "Account")" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('avatarUpload')?.addEventListener('change', function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    document.getElementById('profileAvatarPreview').src = e.target.result;
+                }
+
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    </script>
+}
