@@ -1,7 +1,0 @@
-This is your standalone EXE that works on any Windows PC (no Python needed).
-
-pyinstaller --onefile --windowed --clean --icon=DTree.ico DirectoryTreeGUI.py
-
-
-png to ico:
-https://cloudconvert.com/png-to-ico
