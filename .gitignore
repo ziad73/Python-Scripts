@@ -1,7 +1,7 @@
 .txt
-pyintaller/
-temp/
-Directory Tree.py
-Merge All files.py
-Mail Sender.py
+**/pyintaller/
+**/temp/
 Series Rename .py
+Mail Sender.py
+Merge All files.py
+Directory Tree.py
